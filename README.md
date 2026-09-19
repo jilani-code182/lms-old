@@ -40,16 +40,12 @@ A RESTful Learning Management System built using **Django REST Framework** that 
 
 ```text
 lms/
-├── user/
-├── course/
-├── enrollment/
-├── assignment/
-├── sponsorship/
-├── notification/
-├── my_project/
-├── .gitignore
-├── manage.py
-└── requirements.txt
+├── course_img/
+├── learning/
+├── lms/
+├── profie_pic/
+├── submission_files/
+├── users/
 ```
 
 ## 🗄 Database Design
@@ -57,21 +53,16 @@ lms/
 The project consists of the following main entities:
 
 * User (custom user with role)
-* Profile
 * Course
-* Lesson
+* Enrollment
 * Assignment
 * Submission
-* Enrollment
-* Sponsor
+* Evaluation
 * Sponsorship
-* Payment
 * Notification
-* EmailLog
 
 ### Relationships
 
-* One User can have one Profile.
 * One Instructor can create multiple Courses.
 * One Course can contain multiple Lessons.
 * One Course can contain multiple Assignments.
@@ -81,7 +72,6 @@ The project consists of the following main entities:
 * One Student can submit assignments for enrolled courses.
 * One Sponsor can have multiple Sponsorships.
 * One Student can receive sponsorship from multiple Sponsors.
-* One Sponsorship can be associated with a Payment.
 * One User can receive multiple Notifications.
 
 ## 📋 Prerequisites
