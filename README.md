@@ -1,19 +1,21 @@
-# 📝 Restaurant Management System
+# 📝 Learning Management System
 
-A RESTful Restaurant Management System built using **Django REST Framework** that allows restaurants to manage menus, orders, tables, customers, staff, and payments through secure and role-based APIs.
+A RESTful Learning Management System built using **Django REST Framework** that allows students to enroll in courses, instructors to manage educational content, sponsors to support students financially, and administrators to manage the overall learning platform.
 
 ## ✨ Features
 
 * **Authentication:** Registration, Login, and Logout (Token Authentication and Password Hashing)
-* **Role-Based Access Control:** Admin, Waiter, Chef, and Cashier roles utilizing Django Permissions
-* **CRUD Operations:** Full management for Menu Items, Categories, Tables, Orders, and Customers via DRF APIs
-* **Order Management:** Waiters can create and manage customer orders while chefs can update order preparation status
-* **Order Status Tracking:** Track orders through Pending, Cooking, Ready, Served, Paid, and Cancelled states
-* **Table Management:** Manage restaurant tables and their availability
-* **Search & Filter:** Search menu items by name and category; filter orders by status and date
-* **Pagination:** Clean, paginated responses for menu items, orders, and other listings
+* **Role-Based Access Control:** Admin, Instructor, Student, and Sponsor roles utilizing Django Permissions
+* **CRUD Operations:** Full management for Users, Courses, Lessons, Assignments, Enrollments, Sponsorships, and Notifications via DRF APIs
+* **Course Management:** Instructors can create and manage their own courses, lessons, and assignments
+* **Enrollment Management:** Students can enroll in available courses and track their learning progress
+* **Assignment Management:** Students can submit assignments while instructors can review and evaluate submissions
+* **Sponsorship System:** Sponsors can financially support students and track their sponsorships
+* **Progress Tracking:** Track student course progress from 0% to 100%
+* **Search & Filter:** Search courses by title and instructor; filter by difficulty, price, and course status
+* **Pagination:** Clean, paginated responses for courses, users, and other listings
 * **API Documentation:** Interactive Swagger UI and ReDoc endpoints
-* **Email Notifications:** Automatic email notifications for relevant restaurant activities using Django Signals
+* **Email Notifications:** Automatic email notifications for relevant system activities using Django Signals
 * **Clean Architecture:** Well-commented and structured source code
 
 ## 🛠 Tech Stack
@@ -27,20 +29,24 @@ A RESTful Restaurant Management System built using **Django REST Framework** tha
 
 ## 👥 User Roles
 
-| Role        | Permissions                                                                 |
-| ----------- | --------------------------------------------------------------------------- |
-| **Admin**   | Full system access; manage users, menu, tables, orders, and restaurant data |
-| **Waiter**  | Manage customer orders, view menu items, and update orders as served        |
-| **Chef**    | View orders and update food preparation status                              |
-| **Cashier** | View served orders, generate bills, and manage payments                     |
+| Role           | Permissions                                                                                  |
+| -------------- | -------------------------------------------------------------------------------------------- |
+| **Admin**      | Full system access; manage users, roles, courses, enrollments, and platform content          |
+| **Instructor** | Create, update, and delete own courses, lessons, and assignments; review student submissions |
+| **Student**    | View courses, enroll in courses, access lessons, submit assignments, and track progress      |
+| **Sponsor**    | View available courses and students, provide sponsorship, and track sponsorship activities   |
 
 ## 📂 Project Structure
 
 ```text
-restaurant_management/
-├── restaurant_app/
+lms/
+├── user/
+├── course/
+├── enrollment/
+├── assignment/
+├── sponsorship/
+├── notification/
 ├── my_project/
-├── users/
 ├── .gitignore
 ├── manage.py
 └── requirements.txt
@@ -52,23 +58,31 @@ The project consists of the following main entities:
 
 * User (custom user with role)
 * Profile
-* Category
-* MenuItem
-* Table
-* Order
-* OrderItem
+* Course
+* Lesson
+* Assignment
+* Submission
+* Enrollment
+* Sponsor
+* Sponsorship
 * Payment
+* Notification
+* EmailLog
 
 ### Relationships
 
-* One User can manage multiple restaurant operations based on their assigned role.
-* One Category can contain multiple Menu Items.
-* One Table can have multiple Orders over time.
-* One Customer Order can contain multiple Order Items.
-* One Menu Item can be included in multiple Order Items.
-* One Order is associated with one Table.
-* One Order can have one Payment.
-* One User can create and manage multiple Orders based on their role.
+* One User can have one Profile.
+* One Instructor can create multiple Courses.
+* One Course can contain multiple Lessons.
+* One Course can contain multiple Assignments.
+* One Student can enroll in multiple Courses.
+* One Course can have multiple Students through Enrollments.
+* One Assignment can have multiple Submissions.
+* One Student can submit assignments for enrolled courses.
+* One Sponsor can have multiple Sponsorships.
+* One Student can receive sponsorship from multiple Sponsors.
+* One Sponsorship can be associated with a Payment.
+* One User can receive multiple Notifications.
 
 ## 📋 Prerequisites
 
@@ -84,13 +98,13 @@ Make sure the following are installed on your system:
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/jilani-code369/restaurant-management.git
+git clone https://github.com/jilani-code369/lms.git
 ```
 
 ### Navigate to the Project Directory
 
 ```bash
-cd restaurant-management
+cd lms
 ```
 
 ### Create a Virtual Environment
@@ -145,18 +159,22 @@ python manage.py runserver
 
 ### API Endpoints
 
-| Method | Endpoint                                                          | Description                 |
-| ------ | ----------------------------------------------------------------- | --------------------------- |
-| POST   | [`/auth/register/`](http://127.0.0.1:8000/auth/register/)         | Register a new user         |
-| POST   | [`/auth/login/`](http://127.0.0.1:8000/auth/login/)               | User login                  |
-| POST   | [`/auth/logout/`](http://127.0.0.1:8000/auth/logout/)             | User logout                 |
-| CRUD   | [`/api/v1/user/`](http://127.0.0.1:8000/api/v1/user/)             | User management             |
-| CRUD   | [`/api/v1/menu-item/`](http://127.0.0.1:8000/api/v1/menu-item/)   | Menu item management        |
-| CRUD   | [`/api/v1/category/`](http://127.0.0.1:8000/api/v1/category/)     | Menu category management    |
-| CRUD   | [`/api/v1/table/`](http://127.0.0.1:8000/api/v1/table/)           | Restaurant table management |
-| CRUD   | [`/api/v1/order/`](http://127.0.0.1:8000/api/v1/order/)           | Order management            |
-| CRUD   | [`/api/v1/order-item/`](http://127.0.0.1:8000/api/v1/order-item/) | Order item management       |
-| CRUD   | [`/api/v1/payment/`](http://127.0.0.1:8000/api/v1/payment/)       | Payment management          |
+| Method | Endpoint                                                              | Description                      |
+| ------ | --------------------------------------------------------------------- | -------------------------------- |
+| POST   | [`/auth/register/`](http://127.0.0.1:8000/auth/register/)             | Register a new user              |
+| POST   | [`/auth/login/`](http://127.0.0.1:8000/auth/login/)                   | User login                       |
+| POST   | [`/auth/logout/`](http://127.0.0.1:8000/auth/logout/)                 | User logout                      |
+| CRUD   | [`/api/v1/user/`](http://127.0.0.1:8000/api/v1/user/)                 | User management                  |
+| CRUD   | [`/api/v1/profile/`](http://127.0.0.1:8000/api/v1/profile/)           | Profile management               |
+| CRUD   | [`/api/v1/course/`](http://127.0.0.1:8000/api/v1/course/)             | Course management                |
+| CRUD   | [`/api/v1/lesson/`](http://127.0.0.1:8000/api/v1/lesson/)             | Lesson management                |
+| CRUD   | [`/api/v1/assignment/`](http://127.0.0.1:8000/api/v1/assignment/)     | Assignment management            |
+| CRUD   | [`/api/v1/submission/`](http://127.0.0.1:8000/api/v1/submission/)     | Assignment submission management |
+| CRUD   | [`/api/v1/enrollment/`](http://127.0.0.1:8000/api/v1/enrollment/)     | Course enrollment management     |
+| CRUD   | [`/api/v1/sponsor/`](http://127.0.0.1:8000/api/v1/sponsor/)           | Sponsor management               |
+| CRUD   | [`/api/v1/sponsorship/`](http://127.0.0.1:8000/api/v1/sponsorship/)   | Sponsorship management           |
+| CRUD   | [`/api/v1/payment/`](http://127.0.0.1:8000/api/v1/payment/)           | Payment management               |
+| CRUD   | [`/api/v1/notification/`](http://127.0.0.1:8000/api/v1/notification/) | Notification management          |
 
 ### Documentation API
 
@@ -198,23 +216,25 @@ The APIs were tested using **Postman** to verify:
 * Authentication
 * Authorization
 * CRUD Operations
-* Order Management
-* Menu Management
-* Table Management
+* Course Management
+* Enrollment Management
+* Assignment Submission
+* Sponsorship Management
 * Searching
 * Filtering
 * Pagination
-* Payment Processing
+* Notifications
 * Error Handling
 
 ## 💡 Future Improvements
 
 * JWT Authentication
-* Online Food Ordering
-* Image Upload for Menu Items
-* Inventory and Stock Management
-* Restaurant Sales Analytics
-* Reservation and Table Booking System
+* Course Certificates
+* Online Payment Gateway Integration
+* Video-Based Course Content
+* Course Rating and Review System
+* Learning Analytics and Progress Reports
+* Real-Time Notifications
 * Use Django Groups for Role Based Access
 
 ## 👨‍💻 Author
@@ -223,7 +243,7 @@ The APIs were tested using **Postman** to verify:
 
 Backend Developer
 
-* [GitHub](https://github.com/jilani-code369/)
+* [GitHub](https://github.com/jilani-code182/)
 * [Email](mailto:nadafjilani182@gmail.com)
 * [LinkedIn](https://www.linkedin.com/in/jilani-nadaf)
 
