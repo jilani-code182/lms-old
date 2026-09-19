@@ -88,7 +88,7 @@ Make sure the following are installed on your system:
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/jilani-code369/lms.git
+git clone https://github.com/jilani-code182/lms.git
 ```
 
 ### Navigate to the Project Directory
@@ -154,16 +154,12 @@ python manage.py runserver
 | POST   | [`/auth/register/`](http://127.0.0.1:8000/auth/register/)             | Register a new user              |
 | POST   | [`/auth/login/`](http://127.0.0.1:8000/auth/login/)                   | User login                       |
 | POST   | [`/auth/logout/`](http://127.0.0.1:8000/auth/logout/)                 | User logout                      |
-| CRUD   | [`/api/v1/user/`](http://127.0.0.1:8000/api/v1/user/)                 | User management                  |
-| CRUD   | [`/api/v1/profile/`](http://127.0.0.1:8000/api/v1/profile/)           | Profile management               |
+| CRUD   | [`/api/v1/user/`](http://127.0.0.1:8000/api/v1/profile/)                 | User management                  |
 | CRUD   | [`/api/v1/course/`](http://127.0.0.1:8000/api/v1/course/)             | Course management                |
-| CRUD   | [`/api/v1/lesson/`](http://127.0.0.1:8000/api/v1/lesson/)             | Lesson management                |
 | CRUD   | [`/api/v1/assignment/`](http://127.0.0.1:8000/api/v1/assignment/)     | Assignment management            |
 | CRUD   | [`/api/v1/submission/`](http://127.0.0.1:8000/api/v1/submission/)     | Assignment submission management |
 | CRUD   | [`/api/v1/enrollment/`](http://127.0.0.1:8000/api/v1/enrollment/)     | Course enrollment management     |
-| CRUD   | [`/api/v1/sponsor/`](http://127.0.0.1:8000/api/v1/sponsor/)           | Sponsor management               |
 | CRUD   | [`/api/v1/sponsorship/`](http://127.0.0.1:8000/api/v1/sponsorship/)   | Sponsorship management           |
-| CRUD   | [`/api/v1/payment/`](http://127.0.0.1:8000/api/v1/payment/)           | Payment management               |
 | CRUD   | [`/api/v1/notification/`](http://127.0.0.1:8000/api/v1/notification/) | Notification management          |
 
 ### Documentation API
@@ -199,6 +195,9 @@ EMAIL_HOST_USER=your_email@gmail.com
 EMAIL_HOST_PASSWORD=your_app_password
 ```
 
+>Note: Environment variables contain sensitive configuration values and are not included in the repository. The values shown above are placeholders and should be replaced with the appropriate local configuration.
+
+
 ## 🧪 Testing
 
 The APIs were tested using **Postman** to verify:
@@ -220,12 +219,9 @@ The APIs were tested using **Postman** to verify:
 
 * JWT Authentication
 * Course Certificates
-* Online Payment Gateway Integration
 * Video-Based Course Content
 * Course Rating and Review System
 * Learning Analytics and Progress Reports
-* Real-Time Notifications
-* Use Django Groups for Role Based Access
 
 ## 👨‍💻 Author
 
